@@ -1,6 +1,4 @@
 import { Suspense } from "react";
-import { Button } from "@/components/ui/button";
-import { logout } from "@/lib/actions/auth";
 import { requireAuth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
@@ -20,18 +18,13 @@ async function DashboardContent() {
       <p className="text-sm text-muted-foreground">
         Organization: {organization?.name ?? "Unknown"}
       </p>
-      <form action={logout}>
-        <Button type="submit" variant="outline">
-          Log out
-        </Button>
-      </form>
     </>
   );
 }
 
 export default function DashboardPage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-4 bg-zinc-50 px-4 text-center font-sans dark:bg-black">
+    <div className="flex flex-col items-center justify-center gap-4 py-16 text-center">
       <Suspense
         fallback={
           <p className="text-sm text-muted-foreground">Loading dashboard…</p>
@@ -39,6 +32,6 @@ export default function DashboardPage() {
       >
         <DashboardContent />
       </Suspense>
-    </main>
+    </div>
   );
 }
