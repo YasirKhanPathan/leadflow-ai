@@ -1,9 +1,11 @@
 "use server";
 
 import { Prisma } from "@prisma/client";
+import { LeadStatus } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { requireAuth } from "@/lib/auth";
+import { statusTimestamps } from "@/lib/lead-status";
 import { prisma } from "@/lib/prisma";
 import { leadSchema } from "@/lib/validations/lead";
 
@@ -84,7 +86,7 @@ export async function updateLead(
   try {
     const result = await prisma.lead.updateMany({
       where: { id: id.data, organizationId: user.organizationId },
-      data: parsed.data,
+      data: { ...parsed.data, ...statusTimestamps(parsed.data.status) },
     });
     count = result.count;
   } catch (error) {
@@ -120,4 +122,43 @@ export async function deleteLead(id: string): Promise<LeadFormState> {
 
   revalidatePath("/leads");
   return { success: true };
+}
+
+const updateLeadStatusSchema = z.object({
+  id: z.string().min(1),
+  status: z.nativeEnum(LeadStatus),
+});
+
+export async function updateLeadStatus(input: {
+  id: string;
+  status: LeadStatus;
+}): Promise<{ error?: string }> {
+  const user = await requireAuth();
+
+  const parsed = updateLeadStatusSchema.safeParse(input);
+  if (!parsed.success) {
+    return { error: "Invalid input" };
+  }
+
+  let count = 0;
+  try {
+    const result = await prisma.lead.updateMany({
+      where: { id: parsed.data.id, organizationId: user.organizationId },
+      data: {
+        status: parsed.data.status,
+        ...statusTimestamps(parsed.data.status),
+      },
+    });
+    count = result.count;
+  } catch (error) {
+    return { error: toLeadError(error) };
+  }
+
+  if (count === 0) {
+    return { error: "Lead not found" };
+  }
+
+  revalidatePath("/pipeline");
+  revalidatePath("/leads");
+  return {};
 }
