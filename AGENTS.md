@@ -20,7 +20,7 @@ Auth.js v5 (Phase 1) · Zod · Groq API server-side only (Phase 4) · Recharts �
 - GIT: small, descriptive commits per logical unit. Never commit .env.
 
 ## Current phase
-Phase 2 — Lead CRUD (tenant-scoped queries, URL-param search/filter/pagination, server actions).
+Phase 3 — Pipeline (Kanban with optimistic drag & drop, list view fallback, wonAt/lostAt timestamps).
 
 <!-- BEGIN:nextjs-agent-rules -->
 
