@@ -43,3 +43,19 @@ export async function getLeads({ organizationId, filters }: LeadQueryParams) {
 export async function countLeads({ organizationId, filters }: LeadQueryParams) {
   return prisma.lead.count({ where: buildWhere({ organizationId, filters }) });
 }
+
+export async function getPipelineLeads(organizationId: string) {
+  return prisma.lead.findMany({
+    where: { organizationId },
+    orderBy: { createdAt: "desc" },
+    select: {
+      id: true,
+      name: true,
+      company: true,
+      budget: true,
+      status: true,
+      priority: true,
+      createdAt: true,
+    },
+  });
+}

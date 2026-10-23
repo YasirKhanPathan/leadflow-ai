@@ -21,6 +21,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               <Link href="/leads" className="hover:text-foreground">
                 Leads
               </Link>
+              <Link href="/pipeline" className="hover:text-foreground">
+                Pipeline
+              </Link>
             </nav>
           </div>
           <form action={logout}>
