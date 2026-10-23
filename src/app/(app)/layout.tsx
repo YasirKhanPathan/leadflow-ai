@@ -1,8 +1,23 @@
 import Link from "next/link";
 import { logout } from "@/lib/actions/auth";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { requireAuth } from "@/lib/auth";
+import { getFollowUpCounts } from "@/lib/queries/follow-ups";
 
-export default function AppLayout({ children }: { children: React.ReactNode }) {
+export const instant = false;
+
+export default async function AppLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const user = await requireAuth();
+  const counts = await getFollowUpCounts({
+    organizationId: user.organizationId,
+  });
+  const attention = counts.overdue + counts.today;
+
   return (
     <div className="flex min-h-screen flex-col bg-zinc-50 dark:bg-black">
       <header className="border-b bg-background">
@@ -23,6 +38,15 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               </Link>
               <Link href="/pipeline" className="hover:text-foreground">
                 Pipeline
+              </Link>
+              <Link
+                href="/follow-ups"
+                className="flex items-center gap-1.5 hover:text-foreground"
+              >
+                Follow-ups
+                {attention > 0 ? (
+                  <Badge variant="destructive">{attention}</Badge>
+                ) : null}
               </Link>
             </nav>
           </div>

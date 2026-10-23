@@ -77,3 +77,21 @@ export const leadSourceLabel: Record<LeadSource, string> = {
   COLD_OUTREACH: "Cold Outreach",
   OTHER: "Other",
 };
+
+export const CHART_COLORS: Record<LeadStatus, string> = {
+  NEW: "#64748b",
+  CONTACTED: "#3b82f6",
+  QUALIFIED: "#8b5cf6",
+  PROPOSAL_SENT: "#f59e0b",
+  WON: "#22c55e",
+  LOST: "#ef4444",
+};
+
+export const SOURCE_COLORS: Record<LeadSource, string> = {
+  WEBSITE: "#3b82f6",
+  REFERRAL: "#22c55e",
+  SOCIAL_MEDIA: "#8b5cf6",
+  EMAIL: "#f59e0b",
+  COLD_OUTREACH: "#ef4444",
+  OTHER: "#64748b",
+};
