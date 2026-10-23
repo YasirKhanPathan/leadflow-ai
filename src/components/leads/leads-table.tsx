@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import {
   Table,
@@ -39,7 +40,14 @@ export function LeadsTable({ rows }: { rows: LeadRow[] }) {
             const priority = priorityStyle[row.priority];
             return (
               <TableRow key={row.id}>
-                <TableCell className="font-medium">{row.name}</TableCell>
+                <TableCell className="font-medium">
+                  <Link
+                    href={`/leads/${row.id}`}
+                    className="hover:underline"
+                  >
+                    {row.name}
+                  </Link>
+                </TableCell>
                 <TableCell>{row.company ?? <Dash />}</TableCell>
                 <TableCell className="hidden md:table-cell">
                   {row.serviceNeeded ?? <Dash />}

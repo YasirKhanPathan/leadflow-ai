@@ -98,6 +98,7 @@ export async function updateLead(
   }
 
   revalidatePath("/leads");
+  revalidatePath(`/leads/${id.data}`);
   return { success: true };
 }
 

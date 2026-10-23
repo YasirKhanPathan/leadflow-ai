@@ -91,6 +91,7 @@ model Lead {
   aiBudget          String?
   aiTimeline        String?
   aiPriority        Priority?
+  aiPriorityReason  String?
   aiDraftReply      String?
   aiReplyApprovedAt DateTime?
   aiAnalyzedAt      DateTime?

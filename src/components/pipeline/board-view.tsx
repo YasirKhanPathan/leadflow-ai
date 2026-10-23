@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useOptimistic, useTransition } from "react";
+import Link from "next/link";
 import {
   DndContext,
   DragOverlay,
@@ -60,7 +61,12 @@ function BoardCard({
       )}
     >
       <div className="flex items-start justify-between gap-2">
-        <p className="text-sm font-medium leading-snug">{lead.name}</p>
+        <Link
+          href={`/leads/${lead.id}`}
+          className="text-sm font-medium leading-snug hover:underline"
+        >
+          {lead.name}
+        </Link>
         <Badge variant={priority.variant} className={priority.className}>
           {priority.label}
         </Badge>
