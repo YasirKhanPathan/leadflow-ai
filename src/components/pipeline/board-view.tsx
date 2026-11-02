@@ -235,6 +235,7 @@ export function BoardView({ leads }: { leads: PipelineLead[] }) {
 
   return (
     <DndContext
+      id="pipeline-board"
       sensors={sensors}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
