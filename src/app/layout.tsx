@@ -14,7 +14,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "LeadFlow AI",
+  title: {
+    default: "LeadFlow AI",
+    template: "%s · LeadFlow AI",
+  },
   description: "Manage leads and follow-ups with AI assistance for your agency.",
 };
 
