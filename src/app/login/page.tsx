@@ -69,6 +69,29 @@ export default function LoginPage() {
               Create one
             </Link>
           </p>
+
+          <div className="mt-6 rounded-lg border border-dashed p-4">
+            <p className="text-sm font-medium">Just exploring?</p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Try the demo workspace — it comes pre-loaded with sample leads and
+              follow-ups.
+            </p>
+            <p className="mt-2 font-mono text-xs text-muted-foreground">
+              demo@leadflow.ai · Demo1234!
+            </p>
+            <form action={formAction} className="mt-3">
+              <input type="hidden" name="email" value="demo@leadflow.ai" />
+              <input type="hidden" name="password" value="Demo1234!" />
+              <Button
+                type="submit"
+                variant="outline"
+                className="w-full"
+                disabled={pending}
+              >
+                {pending ? "Signing in…" : "Sign in to the demo account"}
+              </Button>
+            </form>
+          </div>
         </CardContent>
       </Card>
     </main>
